@@ -1,0 +1,67 @@
+//now if I do 
+io.emit(
+ 'postUpdated',
+ post
+);
+// all connected users will see the update without refreshing basically we use socket only when we want connected users to see updates in real time
+// if I had to do something like only specific users to get notified then
+io.to(socketid).emit(....)
+
+socket.broadcast.emit(
+ 'postCreated',
+ newPost
+);
+//then everyone else sender would be notified
+
+socket.emit(
+ 'postCreated',
+ newPost
+);
+//then only the current socket would receive it.
+
+const io =
+req.app.get('io');
+// to use io anywhere else in backend in any route file after setup in server.js
+
+io.on(
+ 'connection',
+ socket => {
+   socket.on(
+    'register',
+    username => {
+      onlineUsers.set(
+       username,
+       socket.id
+      );
+    }
+   );
+ });
+//Map users to sockets
+//When user connects
+//then inside any route
+const io = req.app.get('io');
+allowedUsers.forEach(
+ user => {
+   const socketId =
+   onlineUsers.get(
+    user
+   );
+   if(socketId)
+   {
+      io.to(
+       socketId
+      ).emit(
+       'postCreated',
+       newPost
+      );
+   }
+ });
+
+//Real social media example Instagram:
+//Private Account
+//Followers: room of followersocket
+//New post:
+io.to(
+ followerSocket
+).emit(...)
+//Only followers get notified.

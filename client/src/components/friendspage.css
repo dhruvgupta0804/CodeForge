@@ -1,0 +1,59 @@
+/* Beautiful and Elegant Layout */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+
+*,
+*::before,
+*::after {
+  font-family: 'Roboto Mono', monospace !important;
+}
+
+.friends-page {
+  padding: 20px;
+}
+
+.page-heading {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+  position: relative;
+}
+
+.friends-list {
+  margin-top: 20px;
+}
+
+/* Friend item now uses FLEX to perfectly align elements */
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.friend-item:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+/* Ensure name takes up all available space, pushing rating to the right */
+.friend-handle {
+  font-size: 1.2rem;
+  color: #000;
+  flex-grow: 1;  /* Pushes rating to the far right */
+}
+
+/* Align rating in the same vertical line on the far right */
+.friend-rating {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  text-align: right;
+  min-width: 100px; /* Ensures all ratings align in a column */
+}

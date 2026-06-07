@@ -1,0 +1,22 @@
+backend-
+now to pass any values from frontend to backend pass in in url in either - 
+params
+query
+body
+req object contains all details of the request and above three could be accessed using that
+
+react frontend-
+useeffect(()=>{
+    .....
+    return ()=>{ console.log("unmounted") }
+},[]);
+[]- runs once when first landed on the page
+..... code executed as soon as user lands
+return part when user leave or navigates away from the page
+
+e.preventDefault();
+on react frontend prevents page from refreshing as generally when a form is submitted it refreshes
+the page and hence state is lost which was stored by react so to prevent this we we use this command
+
+JSON.stringify()
+converts javascript into json text

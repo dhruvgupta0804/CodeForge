@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+
+/* Force Roboto Mono on every element */
+*,
+*::before,
+*::after {
+  font-family: 'Roboto Mono', monospace !important;
+}
+
+:root {
+  /* Base Colors */
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --subtext-color: #3a3a3a;
+  --border-color: #e0e0e0;
+
+  /* Accent Colors */
+  --primary-color: #ff4500;
+  --gold-color: #ffd700;
+  --accent-dark: #e6be00;
+
+  /* Shadows & Transitions */
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.2);
+  --transition-speed: 0.3s;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.community-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Header */
+.community-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.community-header h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.community-header h3::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 50%;
+  /* Gray gradient from light to dark gray */
+  background: linear-gradient(to right, #ccc, #888);
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+
+.community-header p {
+  font-size: 1.2rem;
+  color: var(--subtext-color);
+}
+
+/* Post Form */
+.post-form {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  margin-bottom: 2rem;
+  transition: transform var(--transition-speed);
+}
+
+.post-form:hover {
+  transform: translateY(-3px);
+}
+
+.post-form .form-label {
+  font-weight: 500;
+}
+
+.post-form .form-control {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+/* Dark, full-width, bold Post Button */
+.post-form .btn {
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  width: 100%;
+  transition: background-color var(--transition-speed);
+}
+
+.post-form .btn:hover {
+  background-color: #222;
+}
+
+/* Blog Card */
+.blog-card {
+  background-color: var(--card-bg);
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px var(--shadow-medium);
+}
+
+.blog-card .card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.blog-card .card-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  flex-grow: 1;
+  margin-right: 1rem;
+}
+
+.blog-card .card-subtitle {
+  font-size: 0.9rem;
+  color: var(--subtext-color);
+  margin-bottom: 1rem;
+}
+
+.blog-card .card-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Vote Container */
+.vote-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.vote-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vote-count {
+  margin: 0 0.5rem;
+  font-size: 1rem;
+}
+
+.comments-button-wrapper {
+  margin-left: auto;
+}
+
+/* Upvote/Downvote Buttons */
+.upvote,
+.downvote {
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px;
+  border: none;
+  background-color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.upvote.active,
+.downvote.active {
+  background-color: #333 !important;
+}
+
+/* Comments Button */
+.comments-btn {
+  background-color: black !important;
+  color: white !important;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.5rem;
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.comments-btn:hover {
+  background-color: #333 !important;
+  transform: scale(1.05);
+}
+
+/* Profile Search Box Button */
+.profile-search-box button {
+  width: 100%;
+  background-color: black !important;
+  color: white !important;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: background-color var(--transition-speed);
+}
+
+.profile-search-box button:hover {
+  background-color: #333 !important;
+}
+
+/* Profile Search Result Block */
+.profile-search-box .card {
+  background-color: var(--card-bg);
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.profile-search-box .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px var(--shadow-medium);
+}
+
+.profile-search-box .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-search-box .card-title {
+  margin-bottom: 0;
+}
+
+/* Legacy sections kept for reference */
+.vote-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.comments-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* src/components/community.css */
+.blog-card.reply-card {
+  margin-bottom: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.nested-reply {
+  margin-left: 15px;
+  border-left: 2px solid #f0f0f0;
+  padding-left: 10px;
+}
+
+.nested-reply .reply-card {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-color: #f0f0f0;
+}
+
+.vote-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.vote-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vote-buttons .upvote,
+.vote-buttons .downvote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+.vote-buttons .upvote.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.vote-buttons .downvote.active {
+  background-color: #dc3545;
+  color: white;
+}
+
+.vote-count {
+  font-weight: bold;
+  min-width: 30px;
+  text-align: center;
+}
+
+.nested-reply {
+  margin-left: 12px;
+  border-left: 2px solid #e0e0e0;
+  padding-left: 8px;
+}
+
+.reply-card {
+  margin-bottom: 8px;
+}
+
+.reply-card .card-body {
+  padding: 0.75rem;
+}
+
+.vote-container {
+  display: flex;
+  align-items: center;
+}
+
+.vote-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.upvote, .downvote {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vote-count {
+  margin: 0 4px;
+  min-width: 20px;
+  text-align: center;
+}

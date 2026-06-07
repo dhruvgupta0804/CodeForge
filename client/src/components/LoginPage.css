@@ -1,0 +1,63 @@
+/* Container styling for full-page centering and background */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    padding: 20px;
+  }
+  
+  /* Box styling for the login form */
+  .login-box {
+    background: #eeeeee;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease-out, slideIn 0.5s ease-out;
+  }
+  
+  /* Title styling */
+  .title {
+    color: #434343;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 3rem;
+  }
+  
+  /* Button styling */
+  .login-button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    color: #2c3e50;
+  }
+  
+  .login-button:hover {
+    transform: translateY(-1px);
+  }
+  
+  .login-button:active {
+    transform: translateY(1px);
+  }
+  
+  /* Keyframes for animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-20px); }
+    to { transform: translateY(0); }
+  }
+  .text{
+    font-size: 1.25rem;
+  }

@@ -1,0 +1,9 @@
+node_modules
+client/node_modules
+
+.env
+
+client/build
+
+client/src/notes.txt
+client/src/socket.txt

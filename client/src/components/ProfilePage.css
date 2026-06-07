@@ -1,0 +1,17 @@
+/* ProfilePage.css - Green themed Calendar Heatmap */
+.color-empty {
+    fill: #e0f2e9;
+  }
+  .color-scale-1 {
+    fill: #a8e6a3;
+  }
+  .color-scale-2 {
+    fill: #66cdaa;
+  }
+  .color-scale-3 {
+    fill: #3cb371;
+  }
+  .color-scale-4 {
+    fill: #2e8b57;
+  }
+  
