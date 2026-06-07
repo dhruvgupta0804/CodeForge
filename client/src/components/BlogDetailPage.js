@@ -4,7 +4,7 @@ import { Card, Button, Form, Alert, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import './community.css';
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 const socket = io(`${API_URL}`);
 
 

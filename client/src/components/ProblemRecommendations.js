@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Spinner, Alert, Button, ListGroup, Badge, Tabs, Tab } from 'react-bootstrap';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
 function ProblemRecommendations({ userHandle, userRating }) {
   // ── Existing rule-based state ──

@@ -8,7 +8,7 @@ function Dashboard() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
   const handleCompare = async () => {
     // Validate both input fields are non-empty

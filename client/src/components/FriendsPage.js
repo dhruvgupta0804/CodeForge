@@ -19,7 +19,7 @@ function FriendsPage() {
   }, [navigate]);
 
   // Load friends from localStorage
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
   useEffect(() => {
     const username = localStorage.getItem('myHandle');

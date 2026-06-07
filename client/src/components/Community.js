@@ -4,7 +4,7 @@ import { Card, Button, Form, Alert, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import './community.css'; // Adjust the path as needed
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
 const Community = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);
