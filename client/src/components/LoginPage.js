@@ -1,94 +1,179 @@
 import React, { useState, useContext } from 'react';
-import { Form, Button, Alert, Spinner } from 'react-bootstrap';
-import axios from 'axios';
+import { Form, Button, Alert, Spinner, Tabs, Tab } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import './LoginPage.css';
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function LoginPage() {
-    const [username, setUsername] = useState('');
-    const [challenge, setChallenge] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [checkLoading, setCheckLoading] = useState(false);
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
-    // Start the login challenge when the user submits their username.
-    const startLogin = async (e) => {
-        e.preventDefault();
-        if (!username) return;
-        setLoading(true);
-        setError('');
-        setMessage('');
-        try {
-            const res = await axios.post(`${API_URL}/api/auth/login`, { username });
-            setChallenge(res.data);
-            // Display the problem link as a clickable href.
-            setMessage(
-                <>
-                    Challenge started! Please submit a compilation error for the following problem within 120 seconds:{' '}
-                    <a href={res.data.problemLink} target="_blank" rel="noopener noreferrer">
-                        {res.data.problemLink}
-                    </a>
-                </>
-            );
-        } catch (err) {
-            console.log(err);
-            setError(err.response?.data?.error || 'Error starting login challenge');
-        }
-        setLoading(false);
-    };
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('login');
 
-    // Check if the login challenge has been successfully passed.
-    const checkChallenge = async () => {
-        if (!challenge) return;
-        setCheckLoading(true);
-        try {
-            const res = await axios.get(`${API_URL}/api/auth/challenge-check?challengeId=${challenge.challengeId}`);
-            if (res.data.success) {
-                login(res.data.token, username);
-                setMessage('Login successful!');
-                navigate('/');
-            }
-        } catch (err) {
-            setError(err.response?.data?.error || 'Error checking challenge');
-        }
-        setCheckLoading(false);
-    };
+  const reset = () => {
+    setMessage('');
+    setError('');
+  };
 
-    return (
-        <div className="login-container">
-            <div className="login-box">
-                <h2 className="title">Login</h2>
-                {!challenge ? (
-                    <Form onSubmit={startLogin}>
-                        {error && <Alert variant="danger">{error}</Alert>}
-                        <Form.Group className="mb-3">
-                            <Form.Label className='text'>Enter your Codeforces Handle:</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Button className="login-button" variant="dark" type="submit" disabled={loading}>
-                            {loading ? <Spinner animation="border" size="sm" /> : 'Start Login Challenge'}
-                        </Button>
-                    </Form>
-                ) : (
-                    <div>
-                        {message && <Alert variant="info">{message}</Alert>}
-                        <Button className="login-button" variant="outline-dark" onClick={checkChallenge} disabled={checkLoading}>
-                            {checkLoading ? <Spinner animation="border" size="sm" /> : 'Check Challenge'}
-                        </Button>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+  // ─── Login ───────────────────────────────────────────────────────────────
+  const handleLogin = async () => {
+    reset();
+    if (!username.trim() || !password.trim()) {
+      setError('Please enter both username and password.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username.trim(), password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message || 'Login failed.');
+      } else {
+        login(data.token, data.username);
+        navigate('/');
+      }
+    } catch (err) {
+      setError('Server error. Please try again.');
+    }
+    setLoading(false);
+  };
+
+  // ─── Register ────────────────────────────────────────────────────────────
+  const handleRegister = async () => {
+    reset();
+    if (!username.trim() || !password.trim()) {
+      setError('Please enter both username and password.');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username.trim(), password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message || 'Registration failed.');
+      } else {
+        login(data.token, data.username);
+        navigate('/');
+      }
+    } catch (err) {
+      setError('Server error. Please try again.');
+    }
+    setLoading(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      activeTab === 'login' ? handleLogin() : handleRegister();
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <div className="login-box">
+        <h2 className="login-title">CodeForge</h2>
+
+        {error && <Alert variant="danger">{error}</Alert>}
+        {message && <Alert variant="success">{message}</Alert>}
+
+        <Tabs
+          activeKey={activeTab}
+          onSelect={(k) => { setActiveTab(k); reset(); }}
+          className="mb-4"
+        >
+          {/* ── Login Tab ── */}
+          <Tab eventKey="login" title="Login">
+            <Form onKeyDown={handleKeyDown}>
+              <Form.Group className="mb-3">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+
+              <Button
+                variant="dark"
+                className="w-100"
+                onClick={handleLogin}
+                disabled={loading}
+              >
+                {loading
+                  ? <Spinner animation="border" size="sm" />
+                  : 'Login'}
+              </Button>
+            </Form>
+          </Tab>
+
+          {/* ── Register Tab ── */}
+          <Tab eventKey="register" title="Register">
+            <Form onKeyDown={handleKeyDown}>
+              <Form.Group className="mb-3">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Choose a username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Min 6 characters"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+
+              <Button
+                variant="dark"
+                className="w-100"
+                onClick={handleRegister}
+                disabled={loading}
+              >
+                {loading
+                  ? <Spinner animation="border" size="sm" />
+                  : 'Create Account'}
+              </Button>
+            </Form>
+          </Tab>
+        </Tabs>
+      </div>
+    </div>
+  );
 }
 
 export default LoginPage;
