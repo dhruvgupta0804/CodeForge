@@ -20,3 +20,4 @@ the page and hence state is lost which was stored by react so to prevent this we
 
 JSON.stringify()
 converts javascript into json text
+

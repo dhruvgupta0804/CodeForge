@@ -22,6 +22,21 @@ router.post('/register', async (req, res) => {
     if (existing)
       return res.status(400).json({ message: 'Username already taken' });
 
+    // Verify this is a real Codeforces handle
+    try {
+      const cfRes = await fetch(`https://codeforces.com/api/user.info?handles=${username}`);
+      const cfData = await cfRes.json();
+      if (cfData.status !== 'OK') {
+        return res.status(400).json({ 
+          message: 'Codeforces handle not found. Username must be your real Codeforces handle.' 
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({ 
+        message: 'Could not verify Codeforces handle. Try again.' 
+      });
+    }
+
     // Hash password
     const hashed = await bcrypt.hash(password, 10);
 
