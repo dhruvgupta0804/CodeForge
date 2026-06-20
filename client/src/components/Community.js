@@ -26,7 +26,7 @@ const Community = ({ currentUser }) => {
     const socket = io(API_URL);
     fetchPosts();
 
-    socket.on('postCreated', (post) => setPosts(prev => [post, ...prev]));
+    socket.on('postCreated', (post) => setPosts(prev => [post, ...prev])); //if 2 posts arrive at same time then prev stores the latest state for second update after first update on similar instance is done
 
     socket.on('postUpdated', (updatedPost) => {
       setPosts(prev => prev.map(post =>
