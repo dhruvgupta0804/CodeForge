@@ -21,8 +21,9 @@ app.use(express.json());  // coverts json input to express function ready data /
 //allowed fronted apps to interact with backend
 app.use(cors({
   origin: [
-    'https://code-forge-one.vercel.app',
-    'http://localhost:3000'  // Keep this for local development
+    'https://code-forge-mocha.vercel.app',
+    'https://code-forge-frzqbpn5u-dhruv08.vercel.app',
+    'http://localhost:3000'
   ],
   credentials: true
 }));
@@ -47,7 +48,8 @@ const server = http.createServer(app);
 const io = socketio(server, {
   cors: { 
     origin: [
-      'https://code-forge-one.vercel.app',
+      'https://code-forge-mocha.vercel.app',
+      'https://code-forge-frzqbpn5u-dhruv08.vercel.app',
       'http://localhost:3000'
     ],
     methods: ["GET", "POST"],

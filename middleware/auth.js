@@ -1,7 +1,7 @@
 // middleware/auth.js
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'your_jwt_secret_key'; // In production, use an environment variable
+const JWT_SECRET = process.env.JWT_SECRET;// In production, use an environment variable
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
